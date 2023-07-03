@@ -1,0 +1,8 @@
+.CssAcion{
+    text-decoration: underline;
+    color: blue;
+    &:hover{
+        cursor: pointer;
+        opacity: 0.5;
+    }
+}

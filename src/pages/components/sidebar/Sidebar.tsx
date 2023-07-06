@@ -12,7 +12,8 @@ import setting from "./iconSidebar/setting.png";
 import btnlogout from "./iconSidebar/btn-logout.png";
 import icondot from "./iconSidebar/icondot.png";
 import { useAppDispatch } from "../../../redux/app/hook";
-import  {singOut} from "../../../redux/fetures/login/loginSilce"
+import { singOut } from "../../../redux/fetures/login/loginSilce";
+import { Router } from "../../../Customrouter";
 function Sidebar() {
   const dispatch = useAppDispatch();
   return (
@@ -36,23 +37,24 @@ function Sidebar() {
             <div className="sidebar__icon">
               <img src={device} alt="" />
             </div>
-             <Link to="/Menu/Device/List" className="btn-loginn">
+            <Link to={Router.Device.List.pathName} className="btn-loginn">
               Thiết bị
-              </Link>
-           
+            </Link>
           </li>
           <li>
             <div className="sidebar__icon">
               <img src={service} alt="" />
             </div>
-            <p className="sidebar__title">Dịch vụ</p>
+            <Link to={Router.Service.List.pathName} className="btn-loginn">
+              Dịch vụ
+            </Link>
           </li>
           <li>
             <div className="sidebar__icon">
               <img src={ordinal_number} alt="" />
             </div>
             <p className="sidebar__title">
-              <Link to="/ManagerNum" className="btn-loginn">
+              <Link to={Router.GiveNumber.List.pathName} className="btn-loginn">
                 Cấp số
               </Link>
             </p>
@@ -78,15 +80,16 @@ function Sidebar() {
           </li>
         </ul>
       </div>
-      <div className="sidebar__btn--logout" onClick={()=>{
-          dispatch(singOut())
-        }}>
+      <div
+        className="sidebar__btn--logout"
+        onClick={() => {
+          dispatch(singOut());
+        }}
+      >
         <div className="sidebar__btn--logout_icon">
           <img src={btnlogout} alt="" />
         </div>
-        <div className="sidebar__btn--logout_title" >
-           Đăng xuất
-        </div>
+        <div className="sidebar__btn--logout_title">Đăng xuất</div>
       </div>
     </div>
   );

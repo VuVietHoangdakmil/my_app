@@ -11,6 +11,7 @@ const AddDevice = (bodyRes:ResBodyDevice)=>{
     return res
 }
 const UpdateDevice = (id:string, bodyRes:ResBodyDevice)=>{
+    delete bodyRes.id
     const res =  axios.patch(API_DEVICE_PRARAM_ID(id), bodyRes);
     return res
 }

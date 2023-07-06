@@ -1,61 +1,61 @@
 import React, { useEffect } from "react";
 import type { ColumnsType } from "antd/es/table";
 import { Badge, Table } from "antd";
-import { Divice } from "../../database/Divice";
+import { Service } from "../../database/Service";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
-import { fetchDeviceAll } from "../../redux/fetures/device/diviceSlice";
-import { FilterData } from "../../redux/fetures/device/diviceSlice";
+import { fetchServiceAll } from "../../redux/fetures/servicess/servicesSlice";
+// import {  } from "../../redux/fetures/servicess/servicesSlice";
 import "../../css/action.scss";
 import { useNavigate } from "react-router-dom";
-interface DataType extends Divice {}
+interface DataType extends Service {}
 
-const ListDivice: React.FC = () => {
+const ListServices: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     ChangeData,
     loading,
-    ListAllDevices,
-    FilterListDevices,
+    ListAllService,
+    FilterListService,
     ValueFilterActive,
     ValueFilterConnected,
-  } = useAppSelector((state) => state.deviceReducer);
-  const OnNavigate = (record: Divice, praram: string) => {
-    navigate(`/Menu/Device/${praram}/${record.id}`, {
+  } = useAppSelector((state) => state.serviceReducer);
+  const OnNavigate = (record: Service, praram: string) => {
+    navigate(`/Menu/Service/${praram}/${record.id}`, {
       state: {
         record,
       },
     });
   };
   useEffect(() => {
-    dispatch(fetchDeviceAll());
+    dispatch(fetchServiceAll());
   }, [ChangeData]);
-  useEffect(() => {
-    dispatch(FilterData());
-  }, [ValueFilterActive, ValueFilterConnected, loading]);
+  // useEffect(() => {
+  //   dispatch(());
+  // }, [ValueFilterActive, ValueFilterConnected, loading]);
   const isFilter =
     `${ValueFilterActive}`.toLowerCase() !== "All".toLowerCase() ||
     `${ValueFilterConnected}`.toLowerCase() !== "All".toLowerCase();
 
   const columns: ColumnsType<DataType> = [
     {
-      title: "Mã thiết bị",
+      title: "Mã Dịch Vụ",
       dataIndex: "id",
       key: "id",
     },
     {
-      title: "Tên Thiết bị",
+      title: "Tên dịch vụ",
       dataIndex: "name",
       key: "id",
     },
     {
-      title: "Địa chỉ IP",
-      dataIndex: "addressIP",
+      title: "Mô tả",
+      dataIndex: "description",
       key: "id",
     },
     {
       title: "Trạng thái hoạt động",
-      dataIndex: "statusActive",
+      dataIndex: "statusConnect",
       key: "id",
       render: (status) => (
         <Badge
@@ -63,22 +63,6 @@ const ListDivice: React.FC = () => {
           text={status ? "Hoạt động" : "Ngưng Hoạt động"}
         />
       ),
-    },
-    {
-      title: "Trạng thái kết nối",
-      dataIndex: "statusConnect",
-      key: "id",
-      render: (status) => (
-        <Badge
-          status={status ? "success" : "error"}
-          text={status ? "Kết nối" : "Mất kết nối"}
-        />
-      ),
-    },
-    {
-      title: "Dịch vụ sử dụng",
-      dataIndex: "useSrever",
-      key: "id",
     },
     {
       title: "Action",
@@ -107,7 +91,7 @@ const ListDivice: React.FC = () => {
     <Table
       className="box-table"
       columns={columns}
-      dataSource={isFilter ? FilterListDevices : ListAllDevices}
+      dataSource={ListAllService}
       loading={loading}
       scroll={{
         y: 300,
@@ -119,4 +103,4 @@ const ListDivice: React.FC = () => {
     />
   );
 };
-export default ListDivice;
+export default ListServices;

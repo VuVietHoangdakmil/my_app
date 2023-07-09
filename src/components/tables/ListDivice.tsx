@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Badge, Table } from "antd";
+import { Badge, Table, Tooltip } from "antd";
 import { Divice } from "../../database/Divice";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import { fetchDeviceAll } from "../../redux/fetures/device/diviceSlice";
@@ -42,21 +42,43 @@ const ListDivice: React.FC = () => {
       title: "Mã thiết bị",
       dataIndex: "id",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (id) => (
+        <Tooltip placement="topLeft" title={id}>
+          {id}
+        </Tooltip>
+      ),
     },
     {
       title: "Tên Thiết bị",
       dataIndex: "name",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (name) => (
+        <Tooltip placement="topLeft" title={name}>
+          {name}
+        </Tooltip>
+      ),
     },
     {
       title: "Địa chỉ IP",
       dataIndex: "addressIP",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
     },
     {
       title: "Trạng thái hoạt động",
       dataIndex: "statusActive",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
       render: (status) => (
         <Badge
           status={status ? "success" : "error"}
@@ -68,6 +90,9 @@ const ListDivice: React.FC = () => {
       title: "Trạng thái kết nối",
       dataIndex: "statusConnect",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
       render: (status) => (
         <Badge
           status={status ? "success" : "error"}
@@ -79,6 +104,14 @@ const ListDivice: React.FC = () => {
       title: "Dịch vụ sử dụng",
       dataIndex: "useSrever",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (name) => (
+        <Tooltip placement="topLeft" title={name}>
+          {name}
+        </Tooltip>
+      ),
     },
     {
       title: "Action",

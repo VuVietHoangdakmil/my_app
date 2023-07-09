@@ -3,7 +3,7 @@ import "../css/TitleContent.scss"
 import React from 'react';
 type Props ={
     title:string,
-    content:string
+    content:string |React.ReactElement
 }
 const TitleContent: React.FC<Props>= ({title,content})=>{
     return (<div className='boxTitleContent' style={{display:"flex"}}>

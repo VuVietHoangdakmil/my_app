@@ -13,9 +13,9 @@ type Props ={
 const Layout: React.FC<Props> =({title,Search,Content,BtnLinks})=>{
     return(
     <div className="table">
-          <div className="table_top">
+          <div className="table_top" style={{display:"block"}}>
             <p className="list" style={{marginBottom:"16px"}}>{title}</p>
-            <div className="find">
+            <div className="find" style={{marginBottom:"20px"}}>
             {BtnLinks && BtnLinks} 
             {Search && Search}
             

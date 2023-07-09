@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import type { ColumnsType } from "antd/es/table";
 import { Badge, Table, Tooltip } from "antd";
-import { GiveNumber, } from "../../database/GiveNumber";
+import { GiveNumber } from "../../database/GiveNumber";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import { fetchgiveNumberAll,RevertTime } from "../../redux/fetures/giveNumber/giveNumberSlice";
 
@@ -20,36 +20,17 @@ import {
 interface DataType extends GiveNumber {}
 
 const ListServices: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const {
-    ChangeData,
-    loading,
-    ListAllgiveNumber,
-    FilterListgiveNumber,
-    ValueFilterDV,
-    ValueFilterpowerSupply,
-    ValueFilterStatus,
-    ValueTime,
-  } = useAppSelector((state) => state.giveNumberReducer);
-  const OnNavigate = (record: GiveNumber, praram: string) => {
-    navigate(`/Menu/GiveNumber/${praram}/${record.id}`, {
-      state: {
-        record,
-      },
-    });
-  };
+  const { loading, ListAllgiveNumber, FilterListReport, ValueTimeReport, } =
+    useAppSelector((state) => state.giveNumberReducer);
+
   useEffect(() => {
     dispatch(RevertTime())
     dispatch(fetchgiveNumberAll());
   }, []);
 
-  const isFilter =
-    ValueFilterDV === ALL &&
-    ValueFilterStatus === ALL &&
-    ValueFilterpowerSupply === ALL &&
-    ValueTime.length <= 0;
-  const List = isFilter ? ListAllgiveNumber : FilterListgiveNumber;
+  const isFilter = ValueTimeReport.length <= 0;
+  const List = isFilter ? ListAllgiveNumber : FilterListReport;
   const newList = List.map((value) => ({
     ...value,
     grantTime: dayjs(value.grantTime).format("HH:mm DD/MM/YYYY"),
@@ -73,14 +54,7 @@ const ListServices: React.FC = () => {
       ellipsis: {
         showTitle: false,
       },
-    },
-    {
-      title: "Tên Khách Hàng",
-      dataIndex: "nameUser",
-      key: "id",
-      ellipsis: {
-        showTitle: false,
-      },
+      sorter: (a, b) => Number(a.stt) - Number(b.stt),
     },
     {
       title: "Tên Dịch Vụ",
@@ -94,6 +68,7 @@ const ListServices: React.FC = () => {
           {name}
         </Tooltip>
       ),
+      sorter: (a, b) => `${a?.nameService}`.localeCompare(`${b?.nameService}`),
     },
     {
       title: "Thới Gian Cấp",
@@ -107,19 +82,7 @@ const ListServices: React.FC = () => {
           {time}
         </Tooltip>
       ),
-    },
-    {
-      title: "Hạn Sử dụng",
-      dataIndex: "HSD",
-      key: "id",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (time) => (
-        <Tooltip placement="topLeft" title={time}>
-          {time}
-        </Tooltip>
-      ),
+      sorter: (a, b) => Number(dayjs(a.grantTime)) - Number(dayjs(b.grantTime)),
     },
     {
       title: "Trạng thái hoạt động",
@@ -142,6 +105,7 @@ const ListServices: React.FC = () => {
           }
         />
       ),
+      sorter: (a, b) => Number(a.status) - Number(b.status),
     },
     {
       title: "Nguồn Cấp",
@@ -150,17 +114,7 @@ const ListServices: React.FC = () => {
       ellipsis: {
         showTitle: false,
       },
-    },
-    {
-      title: "Action",
-      key: "id",
-      width: "7vw",
-      align: "center",
-      render: (record: any) => (
-        <div onClick={() => OnNavigate(record, "Detail")} className="CssAcion">
-          Chi Tiết
-        </div>
-      ),
+      sorter: (a, b) => `${a?.powerSupply}`.localeCompare(`${b?.powerSupply}`),
     },
   ];
   return (

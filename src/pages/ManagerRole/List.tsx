@@ -1,19 +1,19 @@
 import React from "react";
 import Searchs from "../../components/filters/search";
-import ListGiveNumber from "../../components/tables/ListGiveNumber"
+import ListRole from "../../components/tables/ListRole";
 import LayoutContent from "../../components/layOut/layOutContent";
 import BtnLinks from "../../components/buttons/remoteBtnAddtoLinks";
 import { Router } from "../../Customrouter";
-import {SEARCH_GIVE_NUMBER } from "../../util/configText";
+import { SEARCH_GIVE_NUMBER } from "../../util/configText";
 
 const Service: React.FC = () => {
   return (
     <LayoutContent
-      title="Danh Sách Câp số"
+      title="Danh Sách Vai Trò"
       Search={<Searchs type={SEARCH_GIVE_NUMBER} />}
-      Content={<ListGiveNumber />}
+      Content={<ListRole />}
       BtnLinks={
-        <BtnLinks name="Cấp Số " path={Router.GiveNumber.Add.pathName} />
+        <BtnLinks name="Thêm Vai Trò " path={Router.ManagerRole.Add.pathName} />
       }
     />
   );

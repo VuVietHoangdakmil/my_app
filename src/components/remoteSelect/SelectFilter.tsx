@@ -1,13 +1,13 @@
 import { Select, Form } from "antd";
 import React from "react";
 import "../../css/label.scss";
-type Options = {
+export interface Options  {
   label: string;
-  value: string | boolean;
+  value: string | boolean | number;
 };
 
 type Props = {
-  innitTialValue: string | boolean;
+  innitTialValue?: string | boolean|number;
   label: string;
   options: Options[];
   onChange: any;
@@ -22,9 +22,16 @@ const SelectFilter: React.FC<Props> = ({
     onChange(e);
   };
   return (
-    <Form.Item className="boxLabel" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} label={label}>
-      <Select value={innitTialValue} options={options} onChange={onChangeFC} />
-    </Form.Item>
+    <div>
+    <div>{label}</div>
+    <Select
+    
+      style={{ width: "100%" }}
+      value={innitTialValue}
+      options={options}
+      onChange={onChangeFC}
+    />
+    </div>
   );
 };
 export default SelectFilter;

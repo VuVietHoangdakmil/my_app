@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { faCheck, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "../../auth/Style.css";
 import logo_Alta from "../../../assets/logoAlta.png";
 import { Button, Form, Input } from "antd";
@@ -9,7 +8,7 @@ import { getUser } from "../../../service/user";
 import { User } from "../../../database/User";
 import { useAppDispatch } from "../../../redux/app/hook";
 import { singIn } from "../../../redux/fetures/login/loginSilce";
-import { setStorage } from "../../../util/localStore";
+
 import { useNavigate } from "react-router-dom";
 type onFinish = {
   username: string;
@@ -19,19 +18,18 @@ function LoginLeft() {
   const navigate = useNavigate();
   const [loginFail, setLoginFail] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const [form] = Form.useForm();
+ 
   const onFinish = (values: onFinish) => {
     HandlerLogin(values.username, values.password);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   const HandlerLogin = async (username: string, password: string) => {
     try {
       const ListUser: User[] = await getUser();
       const User = ListUser.find(
-        (item) => item.username == username && item.pass == password
+        (item) =>
+          item.username == username && item.pass == password && item.status
       );
       delete User?.pass;
       delete User?.username;
@@ -51,13 +49,14 @@ function LoginLeft() {
     <div className="login-left">
       <img className="logoAlta" src={logo_Alta} alt="logo" />
       <Form
+        form={form}
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
@@ -66,7 +65,10 @@ function LoginLeft() {
           validateStatus={loginFail ? "error" : undefined}
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input onClick={() => setLoginFail(false)} />
+          <Input
+            onClick={() => setLoginFail(false)}
+           
+          />
         </Form.Item>
 
         <Form.Item
@@ -76,7 +78,10 @@ function LoginLeft() {
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password onClick={() => setLoginFail(false)} />
+          <Input.Password
+            onClick={() => setLoginFail(false)}
+            
+          />
         </Form.Item>
 
         <Link to="/ForgotPass" className="forgotpass">

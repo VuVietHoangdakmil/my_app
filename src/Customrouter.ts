@@ -16,4 +16,22 @@ export const Router = {
     Add: { pathName: "/Menu/GiveNumber/Add" },
     Detail: { pathName: "/Menu/GiveNumber/Detail/:id" },
   },
+  Report: {
+    List: { pathName: "/Menu/Report/List" },
+  },
+  ManagerRole: {
+    List: { pathName: "/Menu/ManagerRole/List" },
+    Add: { pathName: "/Menu/ManagerRole/Add" },
+    Edit: { pathName: "/Menu/ManagerRole/Edit/:id" },
+    Detail: { pathName: "/Menu/ManagerRole/Detail/:id" },
+  },
+  ManagerAccount: {
+    List: { pathName: "/Menu/ManagerAccount/List" },
+    Add: { pathName: "/Menu/ManagerAccount/Add" },
+    Edit: { pathName: "/Menu/ManagerAccount/Edit/:id" },
+  },
+  ManagerActiveLog: {
+    List: { pathName: "/Menu/ManagerActiveLog/List" },
+ 
+  },
 };

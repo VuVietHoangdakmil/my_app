@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Badge, Table } from "antd";
+import { Badge, Table,Tooltip } from "antd";
 import { Service } from "../../database/Service";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import { fetchServiceAll } from "../../redux/fetures/servicess/servicesSlice";
@@ -42,16 +42,30 @@ const ListServices: React.FC = () => {
       title: "Mã Dịch Vụ",
       dataIndex: "id",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (id) => (
+        <Tooltip placement="topLeft" title={id}>
+          {id}
+        </Tooltip>
+      ),
     },
     {
       title: "Tên dịch vụ",
       dataIndex: "name",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
     },
     {
       title: "Mô tả",
       dataIndex: "description",
       key: "id",
+      ellipsis: {
+        showTitle: false,
+      },
     },
     {
       title: "Trạng thái hoạt động",
@@ -63,6 +77,9 @@ const ListServices: React.FC = () => {
           text={status ? "Hoạt động" : "Ngưng Hoạt động"}
         />
       ),
+      ellipsis: {
+        showTitle: false,
+      },
     },
     {
       title: "Action",

@@ -14,6 +14,37 @@ import icondot from "./iconSidebar/icondot.png";
 import { useAppDispatch } from "../../../redux/app/hook";
 import { singOut } from "../../../redux/fetures/login/loginSilce";
 import { Router } from "../../../Customrouter";
+import { Popover } from "antd";
+import CSS from "csstype";
+const cssContentLi: CSS.Properties = {
+  width: "100%",
+  display: "block",
+  padding: "10px 10px",
+};
+const cssContentbackground: CSS.Properties = {
+  backgroundColor: " #FF9138",
+  ...cssContentLi,
+  color: "white",
+};
+const content = (
+  <ul>
+    <li>
+      <Link style={cssContentLi} to={Router.ManagerRole.List.pathName}>
+        Quản Lý Vai Trò
+      </Link>
+    </li>
+    <li>
+      <Link style={cssContentLi} to={Router.ManagerAccount.List.pathName}>
+        Quản Lý Tài Khoản
+      </Link>
+    </li>
+    <li>
+      <Link style={cssContentLi} to={Router.ManagerActiveLog.List.pathName}>
+        Quản Lý Người Dùng
+      </Link>
+    </li>
+  </ul>
+);
 function Sidebar() {
   const dispatch = useAppDispatch();
   return (
@@ -64,19 +95,28 @@ function Sidebar() {
               <img src={report} alt="" />
             </div>
             <p className="sidebar__title">
-              <Link to="/Report" className="btn-loginn">
+              <Link to={Router.Report.List.pathName} className="btn-loginn">
                 Báo cáo
               </Link>
             </p>
           </li>
           <li>
-            <div className="sidebar__icon--left">
-              <img src={setting} alt="" />
-            </div>
-            <p className="sidebar__title">Cài đặt hệ thống</p>
-            <div className="sidebar__icon--left">
-              <img src={icondot} alt="" />
-            </div>
+            <Popover
+              placement="right"
+              content={content}
+              arrow={false}
+              trigger="click"
+            >
+              <div style={{ display: "flex", width: "100%" }}>
+                <div className="sidebar__icon--left">
+                  <img src={setting} alt="" />
+                </div>
+                <p className="sidebar__title">Cài đặt hệ thống</p>
+                <div className="sidebar__icon--left">
+                  <img src={icondot} alt="" />
+                </div>
+              </div>
+            </Popover>
           </li>
         </ul>
       </div>

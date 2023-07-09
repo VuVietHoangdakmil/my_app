@@ -51,7 +51,7 @@ const ServecieDetail: React.FC = () => {
           </Col>
           <Col span={16}>
             <div className="boxForm">
-              <Searchs type={SEARCH_DEVICES} />
+              <Searchs type={SEARCH_SERVERS} />
               <TableServiceDetail id={state?.record?.id} />
             </div>
           </Col>
